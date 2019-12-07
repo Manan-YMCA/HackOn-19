@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Hackon | Tasks
+{% endblock%}
+
+
+
+{% block body %}
+
+<div class="stickers">
+			{% for task_el in task %}
+			<a href="/task/{{task_el.level}}/" style="text-decoration: none;">
+				<div class="stickerdiv">
+					<img class="sticker" src="{% static 'assets1/5.png' %}"/>
+					<p id="one" class="task">Task {{task_el.level}}</p>
+					{% if task_el.level in hacked %}
+						<p id="unlocked"class="hacked">HACKED</p>
+						{% for i in hacked_tasks %}
+							{% if i.question.level == task_el.level %}
+								{% if task_el.level == 10 %}
+								<p style="text-decoration: none;color:white;font-size: 1vw;">Score : {{i.marks_obtained}}/200</p>
+								{% else %}
+								<p style="text-decoration: none;color:white;font-size: 1vw;">Score : {{i.marks_obtained}}/100</p>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+					{% else %}
+
+						{% ifequal task_el.status "UNLOCKED" %}
+							<p id="one" class="status">Status: Pending</p>
+						{% else %}
+							<p id="one" class="status">Status: Locked</p>
+						{% endifequal %}
+					{% endif %}
+				</div>
+			</a>
+			{% endfor %}		
+	</div>
+
+{% endblock %}

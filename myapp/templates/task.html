@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+HackOn | Task {{question.level}}
+{% endblock%}
+
+{% block head%}
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" data-turbolinks-track="reload">
+<script type="text/javascript">
+  var level = '{{question.level}}';
+var csrf_token = '{{csrf_token}}';
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+{% ifnotequal message "" %}
+  {% ifequal message "AC" %}
+    <div class="alert alert-success alert-dismissible fade show offset-md-4 col-md-4 offset-sm-1 col-sm-8" role="alert">
+      <strong>Congratulations! Answer Accepted.</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% else %}
+    {% ifequal message "WA" %}
+    <div class="alert alert-danger alert-dismissible fade show offset-md-4 col-md-4 offset-sm-1 col-sm-10" role="alert">
+        <strong>Oops WA! Try again.</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endifequal%}
+    {% if level == '7' %}
+<script>
+p=prompt("If you have dare, type the correct password, sharing on facebook won't make you winner of HackOn, You LOOSER :","");
+</script>
+{% endif %}
+  {% endifequal%}
+{% endifnotequal%}
+
+
+<div class="questioncontent">
+      <a href="https://xunbao.elementsculmyca.com" target="_blank" >
+        <div class="xunbaodiv">
+        <p class="goto" >GO TO</p>
+        <img class="xunbao" src="{% static 'assets2/xunbao.png' %}" />
+        </div>
+      </a>
+      <div class="quesbox">
+        <div class="quesbox2">
+          <center>
+            <div id="question-body">
+              <br>
+
+                {% ifequal message "Locked" %}
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Level Locked!</strong>
+                  </div>
+
+                {%else%}
+                
+                  <div>
+                    <h1>{{question.question__title}}</h1>
+                    <h6><sub>Maximum Marks : {{ question.question__maximum_marks }} &nbsp;&nbsp;  
+                    Wrong attempts : {{question.wrong_attempts}}</sub></h6>
+                    <br>
+                  </div>
+                  <center>
+                    <div id="statement"></div>
+                    <br>
+                    {% if level == '8' %}
+                      <span id="countdown">10</span>
+                    {% endif %}
+                    
+                  </center>
+                  <br>
+                
+                  {% ifnotequal level "1" %}
+                  <form method="{% ifequal question.question__id '720d7e2e8cbe427' %}put{% else %}post{% endifequal %}" >
+                    {% csrf_token %}
+                    <span for="mobile"><h4>Make Submission</h4></span>
+                    
+                    <input type="text" name="answer" id="answer" placeholder="iamhacker" required>&nbsp;&nbsp;
+                    <input class="btn btn-primary" type="submit" name="submit">
+                    <br><br>
+                  </form>
+                  {% endifnotequal %}
+
+                {% endifequal%}
+            </div>
+          </center>
+        </div>
+      </div>
+    </div>
+    <br><br><br>
+
+{% ifequal question.question__id "21e7109faa2d4a6" %} 
+<script src="{% static 'js/jquery.min.js' %}" data-turbolinks-track="reload" i-am-here="qpjsdrlxgai" ></script>
+{% else %}
+<script src="{% static 'js/jquery.min.js' %}" data-turbolinks-track="reload"></script>
+{% endifequal %}
+<script src="{% static 'js/bootstrap.min.js' %}" data-turbolinks-track="reload" ></script>
+
+{% if question.level == 1 %}
+<script type="text/javascript">
+a=window.location.host+"";
+b=a.length;c=4+((5*10)*2);
+d=String.fromCharCode(c,-(41-Math.floor(1806/13)),
+Math.sqrt(b-2)*29,(b*8)-29);
+</script>
+{% endif %}
+
+
+
+<script>
+  
+  window.onload = function(){
+    document.getElementById("answer").value='';
+};
+  
+var level = '{{question.question_id}}';
+var myJSONList = (("{{question.question__statement|escapejs}}").replace(/&(l|g|quo)t;/g, function(a,b){
+                return {
+                    l   : '<',
+                    g   : '>',
+                    quo : '"'
+                }[b];
+            }));
+$("#statement").append(myJSONList);
+</script>
+{% endblock %}
